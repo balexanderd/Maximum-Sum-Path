@@ -7,6 +7,7 @@
 -->
 <html>
 	<head>
+		<meta charset="utf-8" />
 		<title>2DarrayRecursiveSumPath</title>
 		
     </head>
@@ -25,48 +26,53 @@
 			test(testobj);
 			alert(testobj.sum);*/
 			
-			var array = [[12, 4, 38], [2, 10, 4], [10, 48, 10]];
+			var a = [[12, 4, 38], [2, 10, 4], [10, 48, 10]];
+
 			/*for (i = 0; i < array.length; i++)
 				for(j = 0; j < array[i].length; j++)
 					alert(array[i][j]);*/
 			
-			pathObj = {'path':"", 'sum':0, 'i':0, 'j':0, 'subPath':0};
-			sum = array[0][0];
-			function findPath(pathObj, array, sum){
-				if(pathObj.j < array[pathObj.i].length)
+		function maxSumPath(a) {
+			var pathObj = {'path':"", 'sum':0, 'i':0, 'j':0, 'subPath':"", subSum:0};
+			pathObj.subSum = a[0][0];
+
+			function findPath(pathObj, a){
+				if(pathObj.j < a[pathObj.i].length - 1)
 				{
 					pathObj.j++;
-					sum += array[pathObj.i][pathObj.j];
+					var sam = pathObj.subSum;
+					pathObj.subSum += a[pathObj.i][pathObj.j];
 					pathObj.subPath += "&rarr;";
-					findPath(pathObj, array, sum);
-					sum -= array[pathObj.i][pathObj.j];
+					findPath(pathObj, a);
+					pathObj.subSum -= a[pathObj.i][pathObj.j];
 					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
 					pathObj.j--;
 				}
-				if(pathObj.i < array.length)
+				if(pathObj.i < a.length - 1)
 				{
 					pathObj.i++;
-					sum += array[pathObj.i][pathObj.j];
+					var sam = pathObj.subSum;
+					pathObj.subSum += (a[pathObj.i][pathObj.j]);
 					pathObj.subPath += "&darr;";
-					findPath(pathObj, array, sum);
-					sum -= array[pathObj.i][pathObj.j];
+					findPath(pathObj, a);
+					pathObj.subSum -= a[pathObj.i][pathObj.j];
 					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
 					pathObj.i--;
 				}
-				if(pathObj.i == array.length-1 && pathObj.j == array[pathObj.i].length-1)
+				if(pathObj.i == a.length-1 && pathObj.j == a[pathObj.i].length-1)
 				{
-					sum += array[pathObj.i][pathObj.j];
-					if(pathObj.sum < sum)
+					if(pathObj.sum < pathObj.subSum)
 					{
-						pathObj.sum = sum;
+						pathObj.sum = pathObj.subSum;
 						pathObj.path = pathObj.subPath;
 					}
-					sum -= array[pathObj.i][pathObj.j];
 				}
-				return;
+				return {path:pathObj.path, sum:pathObj.sum};
 			}
-			findPath(pathObj, array, sum);
-			document.getElementById("changed").innerHTML = "Path: " + pathObj.path + "<br>Sum: " + pathObj.sum;
+			return findPath(pathObj, a);
+		}
+			var success = maxSumPath(a);
+			document.getElementById("changed").innerHTML = "Path: " + success.path + "<br>Sum: " + success.sum;
 		</script>
     </body>
 </html>
