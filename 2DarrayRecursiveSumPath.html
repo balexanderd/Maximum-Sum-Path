@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+	Brent A. Dixon
+	Take a two dimensional array, and moving only right and left
+	from the top left starting position, print the path that
+	yields the greatest sum, and print that sum as well.
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>2DarrayRecursiveSumPath</title>
+		
+    </head>
+    <body>
+		<p id="changed"></p>
+		<script>
+			//Recursive test function.
+			/*testobj = {b:5, sum:0}
+			function test(testobj)
+			{
+				testobj.sum += testobj.b;
+				testobj.b--;
+				if (testobj.b > 0)
+					test(testobj);
+			}
+			test(testobj);
+			alert(testobj.sum);*/
+			
+			var a = [[12, 4, 38], [2, 10, 4], [10, 48, 10]];
+			
+
+			/*for (i = 0; i < array.length; i++)
+				for(j = 0; j < array[i].length; j++)
+					alert(array[i][j]);*/
+			
+		function maxSumPath(a) {
+			var pathObj = {'path':"", 'sum':0, 'i':0, 'j':0, 'subPath':"", subSum:0};
+			pathObj.subSum = a[0][0];
+
+			function findPath(pathObj, a){
+				if(pathObj.j < a[pathObj.i].length - 1)
+				{
+					alert(pathObj.j + "<" + (a.length - 1));
+					pathObj.j++;
+					var sam = pathObj.subSum;
+					pathObj.subSum += a[pathObj.i][pathObj.j];
+					pathObj.subPath += "&rarr;";
+					findPath(pathObj, a);
+					pathObj.subSum -= a[pathObj.i][pathObj.j];
+					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
+					pathObj.j--;
+				}
+				if(pathObj.i < a.length - 1)
+				{
+					alert(pathObj.i + "<" + (a.length - 1));
+					pathObj.i++;
+					var sam = pathObj.subSum;
+					pathObj.subSum += (a[pathObj.i][pathObj.j]);
+					pathObj.subPath += "&darr;";
+					findPath(pathObj, a);
+					pathObj.subSum -= a[pathObj.i][pathObj.j];
+					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
+					pathObj.i--;
+				}
+				if(pathObj.i == a.length-1 && pathObj.j == a[pathObj.i].length-1)
+				{
+					if(pathObj.sum < pathObj.subSum)
+					{
+						pathObj.sum = pathObj.subSum;
+						pathObj.path = pathObj.subPath;
+					}
+				}
+				return {path:pathObj.path, sum:pathObj.sum};
+			}
+			return findPath(pathObj, a);
+		}
+			var success = maxSumPath(a);
+			document.getElementById("changed").innerHTML = "Path: " + success.path + "<br>Sum: " + success.sum;
+		</script>
+    </body>
+</html>

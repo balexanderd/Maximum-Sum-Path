@@ -34,7 +34,7 @@ int main()
 
 void findPath(path &pathObj, int &sum, int input[size][size], string &Spath)
 {
-	if (pathObj.j < size)
+	if (pathObj.j < size-1
 	{
 		pathObj.j++;
 		sum += input[pathObj.i][pathObj.j];
@@ -44,7 +44,7 @@ void findPath(path &pathObj, int &sum, int input[size][size], string &Spath)
 		Spath = Spath.substr(0, Spath.size() - 2);
 		pathObj.j--;
 	}
-	if (pathObj.i < size)
+	if (pathObj.i < size-1)
 	{
 		pathObj.i++;
 		sum += input[pathObj.i][pathObj.j];
