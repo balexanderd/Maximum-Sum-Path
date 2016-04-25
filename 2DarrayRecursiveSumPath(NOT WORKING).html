@@ -51,7 +51,7 @@
 					findPath(pathObj, array, sum);
 					sum -= array[pathObj.i][pathObj.j];
 					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
-					pathObj.j--;
+					pathObj.i--;
 				}
 				if(pathObj.i == array.length-1 && pathObj.j == array[pathObj.i].length-1)
 				{
