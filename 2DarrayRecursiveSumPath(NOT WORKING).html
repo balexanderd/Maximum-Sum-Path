@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+	Brent A. Dixon
+	Take a two dimensional array, and moving only right and left
+	from the top left starting position, print the path that
+	yields the greatest sum, and print that sum as well.
+-->
+<html>
+	<head>
+		<title>2DarrayRecursiveSumPath</title>
+		<script>
+			//Recursive test function.
+			/*testobj = {b:5, sum:0}
+			function test(testobj)
+			{
+				testobj.sum += testobj.b;
+				testobj.b--;
+				if (testobj.b > 0)
+					test(testobj);
+			}
+			test(testobj);
+			alert(testobj.sum);*/
+			
+			var array = [[12, 4, 38], [2, 10, 4], [10, 48, 10]];
+
+			/*for (i = 0; i < array.length; i++)
+				for(j = 0; j < array[i].length; j++)
+					alert(array[i][j]);*/
+			
+			pathObj = {'path':"", 'sum':0, 'i':0, 'j':0, 'subPath':0};
+			sum = array[0][0];
+
+			function findPath(pathObj, array, sum){
+				if(pathObj.j < array[pathObj.i].length)
+				{
+					pathObj.j++;
+					sum += array[pathObj.i][pathObj.j];
+					pathObj.subPath += "&rarr;";
+					findPath(pathObj, array, sum);
+					sum -= array[pathObj.i][pathObj.j];
+					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
+					pathObj.j--;
+				}
+				if(pathObj.i < array.length)
+				{
+					pathObj.i++;
+					sum += array[pathObj.i][pathObj.j];
+					pathObj.subPath += "&darr;";
+					findPath(pathObj, array, sum);
+					sum -= array[pathObj.i][pathObj.j];
+					pathObj.subPath = pathObj.subPath.substring(0, pathObj.subPath.length - 6);
+					pathObj.i--;
+				}
+				if(pathObj.i == array.length-1 && pathObj.j == array[pathObj.i].length-1)
+				{
+					sum += array[pathObj.i][pathObj.j];
+					if(pathObj.sum < sum)
+					{
+						pathObj.sum = sum;
+						pathObj.path = pathObj.subPath;
+					}
+					sum -= array[pathObj.i][pathObj.j];
+				}
+				return;
+			}
+			findPath(pathObj, array, sum);
+			alert("Path: " + pathObj.path + "\nSum: " + pathObj.sum);
+		</script>
+    </head>
+    <body>
+		
+    </body>
+</html>
