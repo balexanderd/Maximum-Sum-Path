@@ -40,7 +40,6 @@
 			function findPath(pathObj, a){
 				if(pathObj.j < a[pathObj.i].length - 1)
 				{
-					alert(pathObj.j + "<" + (a.length - 1));
 					pathObj.j++;
 					var sam = pathObj.subSum;
 					pathObj.subSum += a[pathObj.i][pathObj.j];
@@ -52,7 +51,6 @@
 				}
 				if(pathObj.i < a.length - 1)
 				{
-					alert(pathObj.i + "<" + (a.length - 1));
 					pathObj.i++;
 					var sam = pathObj.subSum;
 					pathObj.subSum += (a[pathObj.i][pathObj.j]);
